@@ -34,7 +34,8 @@ import fitnesse.components.CommandRunner;
  */
 public class GitCmSystem {
   public static void cmUpdate(String file, String payload) throws Exception {
-    execute("cmUpdate", "/usr/local/bin/git add " + file + " && /usr/local/bin/git ci -m 'FitNesse committing file [" + file + "]'");
+    execute("cmUpdate", "/usr/local/bin/git add " + file);
+    execute("cmUpdateCommit", "/usr/local/bin/git commit -m FitNesse");
   }
 
   public static void cmEdit(String file, String payload) {
@@ -52,7 +53,7 @@ public class GitCmSystem {
   private static void execute(String method, String command) throws Exception {
     CommandRunner runner = new CommandRunner(command, "");
     runner.run();
-    if (runner.getOutput().length() + runner.getError().length() > 0) {
+    if (runner.getExitCode() > 0) {
       System.err.println(method + " command: " + command);
       System.err.println(method + " exit code: " + runner.getExitCode());
       System.err.println(method + " out:" + runner.getOutput());
