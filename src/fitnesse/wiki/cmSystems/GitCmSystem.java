@@ -34,7 +34,7 @@ import fitnesse.components.CommandRunner;
  */
 public class GitCmSystem {
   public static void cmUpdate(String file, String payload) throws Exception {
-    execute("cmUpdate", "/usr/local/bin/git add " + file);
+    execute("cmUpdate", "/usr/local/bin/git add " + file + " && /usr/local/bin/git ci -m 'FitNesse committing file [" + file + "]'");
   }
 
   public static void cmEdit(String file, String payload) {
